@@ -1,5 +1,6 @@
 public class ContaPoupanca extends Conta implements ITaxas {
     private double limite;
+    ContaPoupanca(Cliente dono) {}
     @Override
     public boolean setLimite(double limite) {
         if(limite < 1000 && limite < 100){

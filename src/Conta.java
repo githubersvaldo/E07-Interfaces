@@ -1,4 +1,4 @@
-public abstract class Conta {
+public abstract class Conta implements ITaxas{
 
     private int numero;
 
@@ -8,26 +8,22 @@ public abstract class Conta {
 
     private double limite;
 
-    private Operacao[] operacoes;
+    private Operacao[] operacoes = new Operacao[6];
 
-    private int proximaOperacao;
+    private int proximaOperacao = 0;
 
     private static int totalContas = 0;
 
     public Conta() {}
-
-
-
-    public boolean sacar(double valor) {
+    public double sacar(double valor) {
         if (valor >= 0 && valor <= this.limite) {
             this.saldo -= valor;
 
             this.operacoes[proximaOperacao] = new OperacaoSaque(valor);
             this.proximaOperacao++;
-            return true;
+            return valor;
         }
-
-        return false;
+        return 0; //codigo de erro
     }
 
     public void depositar(double valor) {
@@ -38,8 +34,8 @@ public abstract class Conta {
     }
 
     public boolean transferir(Conta destino, double valor) {
-        boolean valorSacado = this.sacar(valor);
-        if (valorSacado) {
+        double valorSacado = this.sacar(valor);
+        if (valorSacado != 0) {
             destino.depositar(valor);
             return true;
         }
@@ -55,13 +51,25 @@ public abstract class Conta {
     }
 
     public void imprimirExtrato() {
-        System.out.println("======= Extrato Conta " + this.numero + "======");
+        System.out.println("======= Extrato Conta " + (this.numero + 1) + " ======");
         for(Operacao atual : this.operacoes) {
             if (atual != null) {
                 atual.toString();
             }
         }
         System.out.println("====================");
+    }
+    public double calculaTaxas(){return 0;}
+    public void imprimirExtratoTaxas(){
+        float Total = 0;
+        System.out.println("======= Extrato Conta Taxas ======");
+        System.out.printf("Manutenção da conta: %.2f\n" ,this.calculaTaxas());
+        System.out.printf("Operações\n");
+        for(int i = 0; i < proximaOperacao; i++) {
+            System.out.printf("%s %.2f\n" ,operacoes[i].getTipo(),operacoes[i].calculaTaxas());
+            Total += operacoes[i].calculaTaxas();
+        }
+        System.out.printf("Total: %.2f\n", Total);
     }
 
     public int getNumero() {

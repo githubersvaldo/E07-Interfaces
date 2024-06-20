@@ -2,6 +2,10 @@ public class ContaCorrente extends Conta implements ITaxas {
     private double limite;
     int[] teste ={1,2,3,4};
 
+    ContaCorrente(Cliente donos) {
+        this.dono = donos;
+    }
+
     public int[] getTeste() {
         return teste;
     }
@@ -9,6 +13,7 @@ public class ContaCorrente extends Conta implements ITaxas {
     public void setTeste(int[] teste) {
         this.teste = teste;
     }
+
 
     @Override
     public boolean setLimite(double limite) {
@@ -20,9 +25,9 @@ public class ContaCorrente extends Conta implements ITaxas {
     @Override
     public double calculaTaxas(){
         if(this.dono instanceof PessoaFisica )
-            return -10;
+            return 10;
         else if (this.dono instanceof PessoaJuridica )
-            return -20;
+            return 20;
         else return 0; //codigo de erro
     }
 }

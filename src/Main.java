@@ -2,11 +2,21 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
+        // Criando um cliente que é uma pessoa física
+        Cliente pessoa = new PessoaFisica("Davi","Meu Deus",new Date(),"111111111-11",26,'m');
 
-        Cliente joao = new PessoaFisica("João", "Av. Antonio Carlos, 6627",
-                                        new Date(), "111.111.111-11", 36, 'm');
-        Cliente lojinha = new PessoaJuridica("Loja R$1,99", "Av. Afonso Pena, 3000",
-                                        new Date(), "000.00000.0000/0001", 25, "Comércio");joao.toString();
-                                        System.out.println(lojinha.toString());
+        // Criando uma conta corrente para esse cliente
+        Conta cc = new ContaCorrente(pessoa);
+
+        //Fazendo operações de saques e depósitos
+        cc.depositar(1000);
+        cc.depositar(2000);
+        cc.sacar(500);
+        cc.depositar(3000);
+        cc.sacar(10);
+        cc.sacar(15);
+        System.out.println(cc.getSaldo());
+        cc.imprimirExtratoTaxas();
+
     }
 }

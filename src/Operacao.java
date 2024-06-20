@@ -43,6 +43,7 @@ public abstract class Operacao {
 
         Operacao.totalOperacoes++;
     }
+    public abstract double calculaTaxas();
     @Override
     public String toString() {
         return this.data + valueOf(this.valor) + valueOf(this.tipo);
@@ -52,8 +53,10 @@ public abstract class Operacao {
         return data;
     }
 
-    public char getTipo() {
-        return tipo;
+    public String getTipo() {
+        if(this.tipo == 'd'){
+            return "Deposito";
+        }else{return "Saque";}
     }
 
     public double getValor() {
