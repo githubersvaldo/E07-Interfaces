@@ -15,15 +15,11 @@ public abstract class Conta implements ITaxas{
     private static int totalContas = 0;
 
     public Conta() {}
-    public double sacar(double valor) {
-        if (valor >= 0 && valor <= this.limite) {
-            this.saldo -= valor;
+    public void sacar(double valor) {
+        this.saldo -= valor;
 
-            this.operacoes[proximaOperacao] = new OperacaoSaque(valor);
-            this.proximaOperacao++;
-            return valor;
-        }
-        return 0; //codigo de erro
+        this.operacoes[proximaOperacao] = new OperacaoSaque(valor);
+        this.proximaOperacao++;
     }
 
     public void depositar(double valor) {
@@ -34,8 +30,8 @@ public abstract class Conta implements ITaxas{
     }
 
     public boolean transferir(Conta destino, double valor) {
-        double valorSacado = this.sacar(valor);
-        if (valorSacado != 0) {
+        if (valor >= 0 && valor <= this.limite) {
+            this.sacar(valor);
             destino.depositar(valor);
             return true;
         }
@@ -61,13 +57,15 @@ public abstract class Conta implements ITaxas{
     }
     public double calculaTaxas(){return 0;}
     public void imprimirExtratoTaxas(){
-        float Total = 0;
+        double Total = calculaTaxas();
         System.out.println("======= Extrato Conta Taxas ======");
         System.out.printf("Manutenção da conta: %.2f\n" ,this.calculaTaxas());
         System.out.printf("Operações\n");
         for(int i = 0; i < proximaOperacao; i++) {
-            System.out.printf("%s %.2f\n" ,operacoes[i].getTipo(),operacoes[i].calculaTaxas());
-            Total += operacoes[i].calculaTaxas();
+            if(operacoes[i].calculaTaxas() != 0) {
+                System.out.printf("%s %.2f\n", operacoes[i].getTipo(), operacoes[i].calculaTaxas());
+                Total += operacoes[i].calculaTaxas();
+            }
         }
         System.out.printf("Total: %.2f\n", Total);
     }

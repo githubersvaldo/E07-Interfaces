@@ -15,7 +15,6 @@ public class Main {
         cc.depositar(3000);
         cc.sacar(10);
         cc.sacar(15);
-        System.out.println(cc.getSaldo());
         cc.imprimirExtratoTaxas();
 
     }
