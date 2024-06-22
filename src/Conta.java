@@ -4,7 +4,7 @@ public abstract class Conta implements ITaxas{
 
     protected Cliente dono;
 
-    private double saldo;
+    protected double saldo;
 
     private double limite;
 
@@ -67,6 +67,7 @@ public abstract class Conta implements ITaxas{
                 Total += operacoes[i].calculaTaxas();
             }
         }
+        this.saldo -= Total;
         System.out.printf("Total: %.2f\n", Total);
     }
 

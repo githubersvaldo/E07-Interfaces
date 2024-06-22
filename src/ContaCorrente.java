@@ -24,10 +24,13 @@ public class ContaCorrente extends Conta implements ITaxas {
     }
     @Override
     public double calculaTaxas(){
-        if(this.dono instanceof PessoaFisica )
+        if(this.dono instanceof PessoaFisica ) {
             return 10;
-        else if (this.dono instanceof PessoaJuridica )
+        }
+        else if (this.dono instanceof PessoaJuridica ) {
+            this.saldo -= 20;
             return 20;
+        }
         else return 0; //codigo de erro
     }
 }
