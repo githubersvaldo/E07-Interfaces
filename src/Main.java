@@ -16,7 +16,7 @@ public class Main {
         cc.sacar(10);
         cc.sacar(15);
 
-        cc.imprimirExtratoTaxas();
+        cc.imprimirExtrato();
         System.out.println(cc.getSaldo());
 
     }

@@ -45,7 +45,7 @@ public abstract class Operacao implements ITaxas {
     }
     @Override
     public String toString() {
-        return this.data + valueOf(this.valor) + valueOf(this.tipo);
+        return this.data + " " + this.tipo + " " + valueOf(this.valor);
     }
 
     public Date getData() {
