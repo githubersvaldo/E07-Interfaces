@@ -28,7 +28,6 @@ public class ContaCorrente extends Conta implements ITaxas {
             return 10;
         }
         else if (this.dono instanceof PessoaJuridica ) {
-            this.saldo -= 20;
             return 20;
         }
         else return 0; //codigo de erro

@@ -11,7 +11,7 @@ import static java.lang.String.valueOf;
 /**
  * Classe responsável por registrar operações de saque e depósitos realizados em contas correntes.
  */
-public abstract class Operacao {
+public abstract class Operacao implements ITaxas {
 
     /* Data de realização da operação */
     private Date data;
@@ -43,7 +43,6 @@ public abstract class Operacao {
 
         Operacao.totalOperacoes++;
     }
-    public abstract double calculaTaxas();
     @Override
     public String toString() {
         return this.data + valueOf(this.valor) + valueOf(this.tipo);
